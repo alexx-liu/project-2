@@ -2,5 +2,35 @@
 title: "Quarto 2"
 author: Alex Liu
 format: html
+execute:
+  echo: false
 ---
 
+```{r}
+suppressPackageStartupMessages(library(tidyverse))
+```
+
+
+```{r}
+mpg |>
+  ggplot(aes(x = displ, y = hwy, color = class)) +
+  geom_point(size = 3, alpha = 0.7) +
+  geom_smooth(aes(group = 1), method = "loess", color = "black", 
+              linetype = "dashed", se = FALSE, linewidth = 0.8) +
+  scale_color_brewer(palette = "Set2") +
+  labs(
+    title = "Engine Size vs. Highway Fuel Efficiency",
+    subtitle = "Larger engines trend toward lower highway MPG, across vehicle classes",
+    x = "Engine Displacement (liters)",
+    y = "Highway MPG",
+    color = "Vehicle Class",
+    caption = "Data: ggplot2::mpg"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(face = "bold", size = 17),
+    plot.subtitle = element_text(color = "gray40", size = 11),
+    legend.position = "right",
+    panel.grid.minor = element_blank()
+  )
+```
